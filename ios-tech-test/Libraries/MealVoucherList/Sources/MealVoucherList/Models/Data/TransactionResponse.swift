@@ -34,7 +34,7 @@ extension TransactionResponse {
         let iso3: String
         let symbol: String
         let title: String
-        
+
         enum CodingKeys: String, CodingKey {
             case iso3 = "iso_3"
             case symbol, title

@@ -6,7 +6,7 @@ struct TransactionDetail {
     let amount: Amount
     let smallIcon: TransactionDetail.Icon
     let largeIcon: TransactionDetail.Icon
-    
+
     init(
         name: String,
         date: Date,
@@ -26,7 +26,7 @@ extension TransactionDetail {
     struct Amount {
         let value: Double
         let symbol: String
-        
+
         init(value: Double, symbol: String) {
             self.value = value
             self.symbol = symbol
