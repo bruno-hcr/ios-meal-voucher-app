@@ -1,4 +1,5 @@
 import UIKit
+import RouterService
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

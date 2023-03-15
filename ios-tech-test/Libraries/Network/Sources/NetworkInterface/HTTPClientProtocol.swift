@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol NetworkManager {
+public protocol HTTPClientProtocol {
     func request(_ request: NetworkRequest, completion: @escaping () -> Void)
 }

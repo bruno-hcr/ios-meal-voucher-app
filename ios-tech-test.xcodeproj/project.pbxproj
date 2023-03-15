@@ -11,6 +11,14 @@
 		1B94E07429C09B1E00A03FF4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B94E07329C09B1E00A03FF4 /* SceneDelegate.swift */; };
 		1B94E07B29C09B1F00A03FF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B94E07A29C09B1F00A03FF4 /* Assets.xcassets */; };
 		1B94E07E29C09B1F00A03FF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B94E07C29C09B1F00A03FF4 /* LaunchScreen.storyboard */; };
+		1BD8682329C23E240041800B /* RouteHandlerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD8682229C23E240041800B /* RouteHandlerFactory.swift */; };
+		1BD8682529C23E440041800B /* MealVoucherDetailInterface in Frameworks */ = {isa = PBXBuildFile; productRef = 1BD8682429C23E440041800B /* MealVoucherDetailInterface */; };
+		1BD8682729C23E440041800B /* MealVoucherListInterface in Frameworks */ = {isa = PBXBuildFile; productRef = 1BD8682629C23E440041800B /* MealVoucherListInterface */; };
+		1BD8682929C23E440041800B /* NetworkInterface in Frameworks */ = {isa = PBXBuildFile; productRef = 1BD8682829C23E440041800B /* NetworkInterface */; };
+		1BD8682B29C23E440041800B /* RouterService in Frameworks */ = {isa = PBXBuildFile; productRef = 1BD8682A29C23E440041800B /* RouterService */; };
+		1BD8682D29C23E440041800B /* RouterServiceInterface in Frameworks */ = {isa = PBXBuildFile; productRef = 1BD8682C29C23E440041800B /* RouterServiceInterface */; };
+		1BD8682F29C23FB20041800B /* DependencyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD8682E29C23FB20041800B /* DependencyFactory.swift */; };
+		1BD8683129C247230041800B /* RouterServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD8683029C247230041800B /* RouterServiceFactory.swift */; };
 		1BDBDA8C29C0B3C300D10166 /* Components in Frameworks */ = {isa = PBXBuildFile; productRef = 1BDBDA8B29C0B3C300D10166 /* Components */; };
 		1BDBDA8E29C0B3C300D10166 /* MealVoucherList in Frameworks */ = {isa = PBXBuildFile; productRef = 1BDBDA8D29C0B3C300D10166 /* MealVoucherList */; };
 		1BDBDA9229C0B5E100D10166 /* MealVoucherDetail in Frameworks */ = {isa = PBXBuildFile; productRef = 1BDBDA9129C0B5E100D10166 /* MealVoucherDetail */; };
@@ -26,6 +34,10 @@
 		1B94E07F29C09B1F00A03FF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B94E09229C0ACDB00A03FF4 /* MealVoucherList */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MealVoucherList; sourceTree = "<group>"; };
 		1B94E09329C0AE5500A03FF4 /* Components */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Components; sourceTree = "<group>"; };
+		1BD8682029C235B20041800B /* RouterService */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RouterService; sourceTree = "<group>"; };
+		1BD8682229C23E240041800B /* RouteHandlerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteHandlerFactory.swift; sourceTree = "<group>"; };
+		1BD8682E29C23FB20041800B /* DependencyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyFactory.swift; sourceTree = "<group>"; };
+		1BD8683029C247230041800B /* RouterServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterServiceFactory.swift; sourceTree = "<group>"; };
 		1BDBDA8F29C0B5C500D10166 /* MealVoucherDetail */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MealVoucherDetail; sourceTree = "<group>"; };
 		1BDBDA9529C0B62100D10166 /* Network */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Network; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -35,10 +47,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BD8682729C23E440041800B /* MealVoucherListInterface in Frameworks */,
 				1BDBDA8E29C0B3C300D10166 /* MealVoucherList in Frameworks */,
+				1BD8682929C23E440041800B /* NetworkInterface in Frameworks */,
 				1BDBDA9429C0B5E500D10166 /* Network in Frameworks */,
 				1BDBDA8C29C0B3C300D10166 /* Components in Frameworks */,
+				1BD8682D29C23E440041800B /* RouterServiceInterface in Frameworks */,
+				1BD8682529C23E440041800B /* MealVoucherDetailInterface in Frameworks */,
 				1BDBDA9229C0B5E100D10166 /* MealVoucherDetail in Frameworks */,
+				1BD8682B29C23E440041800B /* RouterService in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +92,7 @@
 		1B94E08529C09B2700A03FF4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				1BD8682129C23E0D0041800B /* DependencyInjection */,
 				1B94E08729C09C4100A03FF4 /* Application */,
 			);
 			path = Sources;
@@ -102,12 +120,23 @@
 		1B94E09129C0ACB700A03FF4 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				1BD8682029C235B20041800B /* RouterService */,
 				1B94E09329C0AE5500A03FF4 /* Components */,
 				1BDBDA8F29C0B5C500D10166 /* MealVoucherDetail */,
 				1B94E09229C0ACDB00A03FF4 /* MealVoucherList */,
 				1BDBDA9529C0B62100D10166 /* Network */,
 			);
 			path = Libraries;
+			sourceTree = "<group>";
+		};
+		1BD8682129C23E0D0041800B /* DependencyInjection */ = {
+			isa = PBXGroup;
+			children = (
+				1BD8682229C23E240041800B /* RouteHandlerFactory.swift */,
+				1BD8682E29C23FB20041800B /* DependencyFactory.swift */,
+				1BD8683029C247230041800B /* RouterServiceFactory.swift */,
+			);
+			path = DependencyInjection;
 			sourceTree = "<group>";
 		};
 		1BDBDA8A29C0B3C300D10166 /* Frameworks */ = {
@@ -138,6 +167,11 @@
 				1BDBDA8D29C0B3C300D10166 /* MealVoucherList */,
 				1BDBDA9129C0B5E100D10166 /* MealVoucherDetail */,
 				1BDBDA9329C0B5E500D10166 /* Network */,
+				1BD8682429C23E440041800B /* MealVoucherDetailInterface */,
+				1BD8682629C23E440041800B /* MealVoucherListInterface */,
+				1BD8682829C23E440041800B /* NetworkInterface */,
+				1BD8682A29C23E440041800B /* RouterService */,
+				1BD8682C29C23E440041800B /* RouterServiceInterface */,
 			);
 			productName = "ios-tech-test";
 			productReference = 1B94E06E29C09B1E00A03FF4 /* ios-tech-test.app */;
@@ -194,7 +228,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B94E07229C09B1E00A03FF4 /* AppDelegate.swift in Sources */,
+				1BD8682F29C23FB20041800B /* DependencyFactory.swift in Sources */,
+				1BD8682329C23E240041800B /* RouteHandlerFactory.swift in Sources */,
 				1B94E07429C09B1E00A03FF4 /* SceneDelegate.swift in Sources */,
+				1BD8683129C247230041800B /* RouterServiceFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +455,26 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1BD8682429C23E440041800B /* MealVoucherDetailInterface */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MealVoucherDetailInterface;
+		};
+		1BD8682629C23E440041800B /* MealVoucherListInterface */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MealVoucherListInterface;
+		};
+		1BD8682829C23E440041800B /* NetworkInterface */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NetworkInterface;
+		};
+		1BD8682A29C23E440041800B /* RouterService */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RouterService;
+		};
+		1BD8682C29C23E440041800B /* RouterServiceInterface */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RouterServiceInterface;
+		};
 		1BDBDA8B29C0B3C300D10166 /* Components */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Components;

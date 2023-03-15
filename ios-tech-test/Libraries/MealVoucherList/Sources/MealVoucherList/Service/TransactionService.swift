@@ -1,14 +1,14 @@
 import Foundation
-import Network
+import NetworkInterface
 
-protocol MealVoucherListServiceProtocol {
+protocol TransactionServiceProtocol {
     func getTransactionList(completion: @escaping (Result<[Transaction], Error>) -> Void)
 }
 
-final class MealVoucherListService: MealVoucherListServiceProtocol {
-    private let network: NetworkManager
+final class TransactionService: TransactionServiceProtocol {
+    private let network: HTTPClientProtocol
 
-    init(network: NetworkManager) {
+    init(network: HTTPClientProtocol) {
         self.network = network
     }
 

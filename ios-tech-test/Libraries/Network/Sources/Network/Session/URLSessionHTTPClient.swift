@@ -1,6 +1,7 @@
 import Foundation
+import NetworkInterface
 
-public final class URLSessionNetworkManager: NetworkManager {
+public final class URLSessionHTTPClient: HTTPClientProtocol {
     private let urlSession: URLSessionProtocol
 
     public init(urlSession: URLSessionProtocol) {

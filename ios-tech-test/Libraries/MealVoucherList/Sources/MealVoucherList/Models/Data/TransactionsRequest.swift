@@ -1,7 +1,7 @@
 import Foundation
-import Network
+import NetworkInterface
 
 struct TransactionsRequest: NetworkRequest {
     let path: String = "transactions.json"
-    let method: Network.HTTPMethod = .get
+    let method: HTTPMethod = .get
 }

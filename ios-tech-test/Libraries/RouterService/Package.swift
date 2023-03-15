@@ -4,33 +4,30 @@
 import PackageDescription
 
 let package = Package(
-    name: "Network",
-    platforms: [
-        .iOS(.v16)
-    ],
+    name: "RouterService",
     products: [
         .library(
-            name: "Network",
-            targets: ["Network"]
+            name: "RouterService",
+            targets: ["RouterService"]
         ),
         .library(
-            name: "NetworkInterface",
-            targets: ["NetworkInterface"]
+            name: "RouterServiceInterface",
+            targets: ["RouterServiceInterface"]
         )
     ],
     dependencies: [],
     targets: [
         .target(
-            name: "Network",
-            dependencies: ["NetworkInterface"]
+            name: "RouterService",
+            dependencies: ["RouterServiceInterface"]
         ),
         .target(
-            name: "NetworkInterface",
+            name: "RouterServiceInterface",
             dependencies: []
         ),
         .testTarget(
-            name: "NetworkTests",
-            dependencies: ["Network"]
+            name: "RouterServiceTests",
+            dependencies: ["RouterService"]
         )
     ]
 )
