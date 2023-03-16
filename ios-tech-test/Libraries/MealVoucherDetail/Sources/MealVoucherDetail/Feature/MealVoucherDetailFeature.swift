@@ -4,13 +4,16 @@ import RouterServiceInterface
 
 struct MealVoucherDetailFeature: Feature {
     func build(fromRoute route: Route?) -> UIViewController {
-        guard route is MealVoucherDetailRoute else {
+        guard let route = route as? MealVoucherDetailRoute else {
             preconditionFailure()
         }
 
         let view = MealVoucherDetailView()
+        let service = TransactionDetailService(transaction: route.transaction)
+
         let viewController = MealVoucherDetailViewController(
-            customView: view
+            customView: view,
+            service: service
         )
 
         return viewController

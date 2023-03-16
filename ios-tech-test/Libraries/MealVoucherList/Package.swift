@@ -21,7 +21,8 @@ let package = Package(
     dependencies: [
         .package(path: "./Components"),
         .package(path: "./Network"),
-        .package(path: "./RouterService")
+        .package(path: "./RouterService"),
+        .package(url: "https://github.com/onevcat/Kingfisher.git", exact: "7.0.0")
     ],
     targets: [
         .target(
@@ -29,6 +30,7 @@ let package = Package(
             dependencies: [
                 "Components",
                 "MealVoucherListInterface",
+                "Kingfisher",
                 .product(name: "NetworkInterface", package: "Network"),
                 .product(name: "RouterServiceInterface", package: "RouterService")
             ]

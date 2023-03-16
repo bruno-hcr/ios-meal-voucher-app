@@ -1,26 +1,26 @@
 import Components
 import UIKit
 
+protocol MealVoucherListViewDelegate: AnyObject {
+    func didSelectTransaction()
+}
+
 protocol MealVoucherListViewProtocol {
-    func display(viewModel: MealVoucherListView.ViewModel)
+    func display(viewModel: [MealVoucherListView.ViewModel])
 }
 
 final class MealVoucherListView: UIView, MealVoucherListViewProtocol {
+    typealias ViewModel = TransactionItemTableViewCell.ViewModel
 
-    struct ViewModel {
-        private let mealVouchers: [String]
-
-        func numberOfSections() -> Int { 1 }
-        func numberOfRowsInSection(_ section: Int) -> Int { 1 }
-    }
-
-    private var viewModel: ViewModel?
+    private var viewModel: [ViewModel] = []
+    weak var delegate: MealVoucherListViewDelegate?
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(cellClass: TransactionItemTableViewCell.self)
         return tableView
     }()
 
@@ -34,8 +34,13 @@ final class MealVoucherListView: UIView, MealVoucherListViewProtocol {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func display(viewModel: ViewModel) {
+    func display(viewModel: [ViewModel]) {
         self.viewModel = viewModel
+        reloadTableView()
+    }
+
+    private func reloadTableView() {
+        tableView.reloadData()
     }
 }
 
@@ -56,14 +61,22 @@ extension MealVoucherListView: ViewCode {
 
 extension MealVoucherListView: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        viewModel?.numberOfSections() ?? 0
+        1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel?.numberOfRowsInSection(section) ?? 0
+        viewModel.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeue(cellClass: TransactionItemTableViewCell.self, forIndexPath: indexPath)
+        let item = viewModel[indexPath.row]
+        cell.display(item)
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = viewModel[indexPath.row]
+        delegate?.didSelectTransaction()
     }
 }

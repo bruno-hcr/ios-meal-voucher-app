@@ -8,12 +8,13 @@ struct MealVoucherListFeature: Feature {
     @Dependency var routerService: RouterServiceProtocol
 
     func build(fromRoute route: Route?) -> UIViewController {
-        let service = TransactionService(network: network)
+        let service = TransactionListService(network: network)
         let view = MealVoucherListView()
         let viewController = MealVoucherListViewController(
-            customView: view
+            customView: view,
+            service: service
         )
-
+        view.delegate = viewController
         return viewController
     }
 }

@@ -7,7 +7,7 @@ import RouterServiceInterface
 enum DependencyFactory {
     static func make(with routerService: RouterService) {
         routerService.register(dependencyFactory: {
-            URLSessionHTTPClient(urlSession: URLSession.shared)
+            URLSessionHTTPClientDispatch()
         }, forType: HTTPClientProtocol.self)
 
         routerService.register(dependencyFactory: {

@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol HTTPClientProtocol {
-    func request(_ request: NetworkRequest, completion: @escaping () -> Void)
+    func request<T: Codable>(_ request: NetworkRequest, completion: @escaping (Result<T, Error>) -> Void)
 }
