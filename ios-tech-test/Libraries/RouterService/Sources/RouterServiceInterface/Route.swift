@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol Route: Decodable {
+public protocol Route {
     static var identifier: String { get }
 }

@@ -9,10 +9,7 @@ public final class MealVoucherListRouteHandler: RouteHandler {
 
     public init() {}
 
-    public func destination(
-        forRoute route: Route,
-        fromViewController viewController: UIViewController
-    ) -> Feature.Type {
+    public func destination(forRoute route: Route) -> Feature.Type {
         guard route is MealVoucherListRoute else {
             preconditionFailure()
         }

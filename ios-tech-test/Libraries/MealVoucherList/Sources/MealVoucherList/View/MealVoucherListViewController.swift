@@ -19,5 +19,6 @@ final class MealVoucherListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Transaction List"
     }
 }

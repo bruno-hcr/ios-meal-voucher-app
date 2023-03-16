@@ -1,4 +1,5 @@
 import Foundation
+import MealVoucherListInterface
 import NetworkInterface
 
 protocol TransactionServiceProtocol {

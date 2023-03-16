@@ -1,4 +1,5 @@
 import Foundation
+import MealVoucherListInterface
 
 extension Transaction {
     static func map(from response: TransactionResponse.Transaction) -> Self {

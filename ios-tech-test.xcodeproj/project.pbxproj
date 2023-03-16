@@ -18,7 +18,6 @@
 		1BD8682B29C23E440041800B /* RouterService in Frameworks */ = {isa = PBXBuildFile; productRef = 1BD8682A29C23E440041800B /* RouterService */; };
 		1BD8682D29C23E440041800B /* RouterServiceInterface in Frameworks */ = {isa = PBXBuildFile; productRef = 1BD8682C29C23E440041800B /* RouterServiceInterface */; };
 		1BD8682F29C23FB20041800B /* DependencyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD8682E29C23FB20041800B /* DependencyFactory.swift */; };
-		1BD8683129C247230041800B /* RouterServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD8683029C247230041800B /* RouterServiceFactory.swift */; };
 		1BDBDA8C29C0B3C300D10166 /* Components in Frameworks */ = {isa = PBXBuildFile; productRef = 1BDBDA8B29C0B3C300D10166 /* Components */; };
 		1BDBDA8E29C0B3C300D10166 /* MealVoucherList in Frameworks */ = {isa = PBXBuildFile; productRef = 1BDBDA8D29C0B3C300D10166 /* MealVoucherList */; };
 		1BDBDA9229C0B5E100D10166 /* MealVoucherDetail in Frameworks */ = {isa = PBXBuildFile; productRef = 1BDBDA9129C0B5E100D10166 /* MealVoucherDetail */; };
@@ -37,7 +36,6 @@
 		1BD8682029C235B20041800B /* RouterService */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RouterService; sourceTree = "<group>"; };
 		1BD8682229C23E240041800B /* RouteHandlerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteHandlerFactory.swift; sourceTree = "<group>"; };
 		1BD8682E29C23FB20041800B /* DependencyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyFactory.swift; sourceTree = "<group>"; };
-		1BD8683029C247230041800B /* RouterServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterServiceFactory.swift; sourceTree = "<group>"; };
 		1BDBDA8F29C0B5C500D10166 /* MealVoucherDetail */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MealVoucherDetail; sourceTree = "<group>"; };
 		1BDBDA9529C0B62100D10166 /* Network */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Network; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,7 +132,6 @@
 			children = (
 				1BD8682229C23E240041800B /* RouteHandlerFactory.swift */,
 				1BD8682E29C23FB20041800B /* DependencyFactory.swift */,
-				1BD8683029C247230041800B /* RouterServiceFactory.swift */,
 			);
 			path = DependencyInjection;
 			sourceTree = "<group>";
@@ -231,7 +228,6 @@
 				1BD8682F29C23FB20041800B /* DependencyFactory.swift in Sources */,
 				1BD8682329C23E240041800B /* RouteHandlerFactory.swift in Sources */,
 				1B94E07429C09B1E00A03FF4 /* SceneDelegate.swift in Sources */,
-				1BD8683129C247230041800B /* RouterServiceFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

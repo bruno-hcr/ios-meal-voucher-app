@@ -1,20 +1,23 @@
 import Foundation
 
-struct TransactionDetail {
-    let name: String
-    let date: Date
-    let amount: Amount
-    let smallIcon: TransactionDetail.Icon
-    let largeIcon: TransactionDetail.Icon
+public struct Transaction {
+    public let name: String
+    public let message: String?
+    public let date: Date
+    public let amount: Amount
+    public let smallIcon: Transaction.Icon
+    public let largeIcon: Transaction.Icon
 
-    init(
+    public init(
         name: String,
+        message: String,
         date: Date,
         amount: Amount,
-        smallIcon: TransactionDetail.Icon,
-        largeIcon: TransactionDetail.Icon
+        smallIcon: Transaction.Icon,
+        largeIcon: Transaction.Icon
     ) {
         self.name = name
+        self.message = message
         self.date = date
         self.amount = amount
         self.smallIcon = smallIcon
@@ -22,20 +25,20 @@ struct TransactionDetail {
     }
 }
 
-extension TransactionDetail {
-    struct Amount {
+extension Transaction {
+    public struct Amount {
         let value: Double
         let symbol: String
 
-        init(value: Double, symbol: String) {
+        public init(value: Double, symbol: String) {
             self.value = value
             self.symbol = symbol
         }
     }
 }
 
-extension TransactionDetail {
-    enum Icon: String {
+extension Transaction {
+    public enum Icon: String {
         case bakery
         case burger
         case computer

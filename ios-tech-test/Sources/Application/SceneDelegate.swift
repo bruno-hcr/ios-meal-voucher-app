@@ -1,8 +1,11 @@
 import UIKit
 import MealVoucherList
 import MealVoucherListInterface
+import RouterService
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    private let routerService = RouterService()
+
     var window: UIWindow?
 
     func scene(
@@ -16,15 +19,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         DependencyFactory.make(with: routerService)
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = makeInitialNavigationController()
+        window?.rootViewController = makeNavigationController()
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
     }
 
-    func makeInitialNavigationController() -> UIViewController {
-        let routeHandler = MealVoucherListRouteHandler()
-        let route = MealVoucherListRoute()
-        let feature = routeHandler.destination(forRoute: route, fromViewController: UIViewController())
-        return routerService.navigationController(withInitialFeature: feature)
+    func makeNavigationController() -> UINavigationController {
+        let navigationController = routerService.navigationController(withInitialRoute: MealVoucherListRoute())
+        navigationController.navigationBar.prefersLargeTitles = true
+        return navigationController
     }
 }

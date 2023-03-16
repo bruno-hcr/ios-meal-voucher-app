@@ -3,11 +3,10 @@ import RouterServiceInterface
 import UIKit
 
 public final class RouterService: RouterServiceProtocol, RouterServiceRegistrationProtocol {
-
     let store: StoreInterface
     let failureHandler: () -> Void
 
-    private(set) var registeredRoutes = [String: (AnyRouteType, RouteHandler)]()
+    private(set) var registeredRoutes = [String: RouteHandler]()
 
     public init(
         store: StoreInterface? = nil,
@@ -29,15 +28,17 @@ public final class RouterService: RouterServiceProtocol, RouterServiceRegistrati
 
     public func register(routeHandler: RouteHandler) {
         routeHandler.routes.forEach {
-            registeredRoutes[$0.identifier] = ($0.asAnyRouteType, routeHandler)
+            registeredRoutes[$0.identifier] = routeHandler
         }
     }
 
-    public func navigationController(
-        withInitialFeature feature: Feature.Type
-    ) -> UINavigationController {
+    public func navigationController(withInitialRoute route: Route) -> UINavigationController {
+        guard let handler = handler(forRoute: route) else {
+            return UINavigationController()
+        }
+        let feature = handler.destination(forRoute: route)
         let instance = feature.initialize(withStore: store)
-        let rootViewController = instance.build(fromRoute: nil)
+        let rootViewController = instance.build(fromRoute: route)
         return UINavigationController(rootViewController: rootViewController)
     }
 
@@ -53,8 +54,7 @@ public final class RouterService: RouterServiceProtocol, RouterServiceRegistrati
             return
         }
         let destinationFeatureType = handler.destination(
-            forRoute: route,
-            fromViewController: viewController
+            forRoute: route
         )
         let destinationFeature = destinationFeatureType.initialize(withStore: store)
         let destinationViewController: UIViewController
@@ -81,33 +81,6 @@ public final class RouterService: RouterServiceProtocol, RouterServiceRegistrati
 
     func handler(forRoute route: Route) -> RouteHandler? {
         let routeIdentifier = type(of: route).identifier
-        return registeredRoutes[routeIdentifier]?.1
-    }
-}
-
-extension RouterService: RouterServiceAnyRouteDecodingProtocol {
-    public func decodeAnyRoute(fromDecoder decoder: Decoder) throws -> (Route, String) {
-        let container = try decoder.singleValueContainer()
-        let identifier = try container.decode(String.self)
-
-        guard let routeString = RouteString(fromString: identifier) else {
-            throw RouteDecodingError.failedToParseRouteString
-        }
-
-        guard let routeType = registeredRoutes[routeString.scheme]?.0 else {
-            throw RouteDecodingError.unregisteredRoute
-        }
-
-        do {
-            let value = try routeType.decode(JSONDecoder(), routeString.parameterData)
-            return (value, routeString.originalString)
-        } catch {
-            throw error
-        }
-    }
-
-    public enum RouteDecodingError: Swift.Error {
-        case unregisteredRoute
-        case failedToParseRouteString
+        return registeredRoutes[routeIdentifier]
     }
 }
