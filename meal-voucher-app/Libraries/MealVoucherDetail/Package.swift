@@ -29,17 +29,14 @@ let package = Package(
             dependencies: [
                 "Components",
                 "MealVoucherDetailInterface",
-                .product(name: "MealVoucherListInterface", package: "MealVoucherList"),
                 .product(name: "RouterServiceInterface", package: "RouterService")
             ]
         ),
         .target(
             name: "MealVoucherDetailInterface",
             dependencies: [
-                .product(
-                    name: "RouterServiceInterface",
-                    package: "RouterService"
-                )
+                .product(name: "MealVoucherListInterface", package: "MealVoucherList"),
+                .product(name: "RouterServiceInterface", package: "RouterService")
             ]
         ),
         .testTarget(

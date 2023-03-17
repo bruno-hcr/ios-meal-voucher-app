@@ -10,11 +10,11 @@ enum DependencyFactory {
         routerService.register(dependencyFactory: {
             routerService
         }, forType: RouterServiceProtocol.self)
-        
+
         routerService.register(dependencyFactory: {
             URLSessionHTTPClientDispatch()
         }, forType: HTTPClientProtocol.self)
-        
+
         routerService.register(dependencyFactory: {
             KingfisherImageFetcher()
         }, forType: ImageFetcherProtocol.self)
