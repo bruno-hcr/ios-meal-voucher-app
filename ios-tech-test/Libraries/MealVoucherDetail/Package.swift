@@ -20,6 +20,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "./Components"),
+        .package(path: "./MealVoucherList"),
         .package(path: "./RouterService")
     ],
     targets: [
@@ -28,10 +29,8 @@ let package = Package(
             dependencies: [
                 "Components",
                 "MealVoucherDetailInterface",
-                .product(
-                    name: "RouterServiceInterface",
-                    package: "RouterService"
-                )
+                .product(name: "MealVoucherListInterface", package: "MealVoucherList"),
+                .product(name: "RouterServiceInterface", package: "RouterService")
             ]
         ),
         .target(

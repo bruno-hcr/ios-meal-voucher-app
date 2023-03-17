@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B82BA4829C4C15100116992 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1B82BA4729C4C15100116992 /* Kingfisher */; };
+		1B82BA4B29C4C32300116992 /* KingfisherImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B82BA4A29C4C32300116992 /* KingfisherImageFetcher.swift */; };
+		1B82BA4D29C4C72C00116992 /* ImageFetcherInterface in Frameworks */ = {isa = PBXBuildFile; productRef = 1B82BA4C29C4C72C00116992 /* ImageFetcherInterface */; };
 		1B94E07229C09B1E00A03FF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B94E07129C09B1E00A03FF4 /* AppDelegate.swift */; };
 		1B94E07429C09B1E00A03FF4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B94E07329C09B1E00A03FF4 /* SceneDelegate.swift */; };
 		1B94E07B29C09B1F00A03FF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B94E07A29C09B1F00A03FF4 /* Assets.xcassets */; };
@@ -25,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B82BA4529C4C0CC00116992 /* ImageFetcher */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ImageFetcher; sourceTree = "<group>"; };
+		1B82BA4A29C4C32300116992 /* KingfisherImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingfisherImageFetcher.swift; sourceTree = "<group>"; };
 		1B94E06E29C09B1E00A03FF4 /* ios-tech-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-tech-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B94E07129C09B1E00A03FF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B94E07329C09B1E00A03FF4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,7 +53,9 @@
 				1BD8682729C23E440041800B /* MealVoucherListInterface in Frameworks */,
 				1BDBDA8E29C0B3C300D10166 /* MealVoucherList in Frameworks */,
 				1BD8682929C23E440041800B /* NetworkInterface in Frameworks */,
+				1B82BA4D29C4C72C00116992 /* ImageFetcherInterface in Frameworks */,
 				1BDBDA9429C0B5E500D10166 /* Network in Frameworks */,
+				1B82BA4829C4C15100116992 /* Kingfisher in Frameworks */,
 				1BDBDA8C29C0B3C300D10166 /* Components in Frameworks */,
 				1BD8682D29C23E440041800B /* RouterServiceInterface in Frameworks */,
 				1BD8682529C23E440041800B /* MealVoucherDetailInterface in Frameworks */,
@@ -60,6 +67,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B82BA4929C4C2F800116992 /* ImageFetcher */ = {
+			isa = PBXGroup;
+			children = (
+				1B82BA4A29C4C32300116992 /* KingfisherImageFetcher.swift */,
+			);
+			path = ImageFetcher;
+			sourceTree = "<group>";
+		};
 		1B94E06529C09B1E00A03FF4 = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +105,7 @@
 		1B94E08529C09B2700A03FF4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				1B82BA4929C4C2F800116992 /* ImageFetcher */,
 				1BD8682129C23E0D0041800B /* DependencyInjection */,
 				1B94E08729C09C4100A03FF4 /* Application */,
 			);
@@ -118,6 +134,7 @@
 		1B94E09129C0ACB700A03FF4 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				1B82BA4529C4C0CC00116992 /* ImageFetcher */,
 				1BD8682029C235B20041800B /* RouterService */,
 				1B94E09329C0AE5500A03FF4 /* Components */,
 				1BDBDA8F29C0B5C500D10166 /* MealVoucherDetail */,
@@ -169,6 +186,8 @@
 				1BD8682829C23E440041800B /* NetworkInterface */,
 				1BD8682A29C23E440041800B /* RouterService */,
 				1BD8682C29C23E440041800B /* RouterServiceInterface */,
+				1B82BA4729C4C15100116992 /* Kingfisher */,
+				1B82BA4C29C4C72C00116992 /* ImageFetcherInterface */,
 			);
 			productName = "ios-tech-test";
 			productReference = 1B94E06E29C09B1E00A03FF4 /* ios-tech-test.app */;
@@ -198,6 +217,9 @@
 				Base,
 			);
 			mainGroup = 1B94E06529C09B1E00A03FF4;
+			packageReferences = (
+				1B82BA4629C4C15100116992 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 1B94E06F29C09B1E00A03FF4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -227,6 +249,7 @@
 				1B94E07229C09B1E00A03FF4 /* AppDelegate.swift in Sources */,
 				1BD8682F29C23FB20041800B /* DependencyFactory.swift in Sources */,
 				1BD8682329C23E240041800B /* RouteHandlerFactory.swift in Sources */,
+				1B82BA4B29C4C32300116992 /* KingfisherImageFetcher.swift in Sources */,
 				1B94E07429C09B1E00A03FF4 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -450,7 +473,27 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		1B82BA4629C4C15100116992 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		1B82BA4729C4C15100116992 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1B82BA4629C4C15100116992 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		1B82BA4C29C4C72C00116992 /* ImageFetcherInterface */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ImageFetcherInterface;
+		};
 		1BD8682429C23E440041800B /* MealVoucherDetailInterface */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MealVoucherDetailInterface;

@@ -1,5 +1,5 @@
 import Components
-import Kingfisher
+import ImageFetcherInterface
 import MealVoucherListInterface
 import UIKit
 
@@ -114,7 +114,7 @@ final class TransactionItemTableViewCell: UITableViewCell {
 
     private func displayImage(with icon: Transaction.Icon, for imageView: UIImageView) {
         if case let .url(urlString) = icon, let url = URL(string: urlString) {
-            imageView.kf.setImage(with: url)
+//            imageView.fetchImage(with: url, imageFetcher: <#T##ImageFetcher#>)
         } else if case let .category(icon) = icon {
             imageView.image = icon.toUIImage()
         }
