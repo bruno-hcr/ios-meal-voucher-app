@@ -7,7 +7,7 @@ public struct MealVoucherDetailRoute: Route {
 
     public let transaction: Transaction
 
-    init(transaction: Transaction) {
+    public init(transaction: Transaction) {
         self.transaction = transaction
     }
 }

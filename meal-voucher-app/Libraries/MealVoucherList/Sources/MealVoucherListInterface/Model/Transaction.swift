@@ -1,3 +1,4 @@
+import CommonAssets
 import UIKit
 
 public struct Transaction {
@@ -57,32 +58,39 @@ extension Transaction {
         case train
         case none
 
-        public func toUIImage() -> UIImage? {
+        public var image: UIImage? {
             switch self {
             case .computer:
-                return UIImage(systemName: "desktopcomputer")
+                return Image.tech
             case .bakery:
-                return UIImage(systemName: "fork.knife")
+                return Image.croissant
             case .burger:
-                return UIImage(systemName: "fork.knife")
-            case .donation:
-                return UIImage(systemName: "coloncurrencysign")
-            case .gift:
-                return UIImage(systemName: "gift")
-            case .mealVoucher:
-                return UIImage(systemName: "ticket")
-            case .mobility:
-                return UIImage(systemName: "car.fill")
-            case .payment:
-                return UIImage(systemName: "creditcard")
-            case .supermarket:
-                return UIImage(systemName: "cart")
+                return Image.burger
             case .sushi:
-                return UIImage(systemName: "fork.knife")
+                return Image.sushi
+            case .gift:
+                return Image.gift
+            case .mealVoucher:
+                return Image.forkKnife
+            case .mobility:
+                return Image.bike
+            case .supermarket, .donation, .payment:
+                return Image.drink
             case .train:
-                return UIImage(systemName: "train.side.front.car")
+                return Image.subway
             case .none:
                 return nil
+            }
+        }
+        
+        public var backgroundColor: UIColor {
+            switch self {
+            case .computer:
+                return UIColor(red: 0.996, green: 0.878, blue: 0.941, alpha: 1)
+            case .train:
+                return UIColor(red: 0.996, green: 0.878, blue: 0.882, alpha: 1)
+            default:
+                return UIColor(red: 1, green: 0.922, blue: 0.831, alpha: 1)
             }
         }
     }

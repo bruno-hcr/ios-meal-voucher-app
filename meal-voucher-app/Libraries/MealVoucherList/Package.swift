@@ -20,6 +20,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "./Components"),
+        .package(path: "./CommonAssets"),
         .package(path: "./ImageFetcher"),
         .package(path: "./Network"),
         .package(path: "./RouterService")
@@ -38,6 +39,7 @@ let package = Package(
         .target(
             name: "MealVoucherListInterface",
             dependencies: [
+                "CommonAssets",
                 .product(name: "RouterServiceInterface", package: "RouterService")
             ]
         ),

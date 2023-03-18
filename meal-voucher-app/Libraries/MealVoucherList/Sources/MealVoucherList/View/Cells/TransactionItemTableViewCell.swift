@@ -22,13 +22,14 @@ final class TransactionItemTableViewCell: UITableViewCell {
 
     private lazy var containerStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            largeIconImageView,
+            largeIconView,
             contentStackView,
             amountLabel
         ])
         stackView.distribution = .fill
         stackView.alignment = .center
         stackView.axis = .horizontal
+        stackView.spacing = 16
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -45,26 +46,39 @@ final class TransactionItemTableViewCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+    
+    private lazy var smallIconView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 12
+        view.layer.masksToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     private lazy var smallIconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = UIColor(red: 0.992, green: 0.609, blue: 0.157, alpha: 1)
         imageView.backgroundColor = .white
-        imageView.layer.cornerRadius = 1
-        imageView.layer.masksToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    }()
+    
+    private lazy var largeIconView: UIView = {
+        let view = UIView()
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor(red: 0.988, green: 0.388, blue: 0.714, alpha: 0.06).cgColor
+        view.layer.cornerRadius = 20
+        view.layer.masksToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
 
     private lazy var largeIconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = UIColor(red: 0.992, green: 0.609, blue: 0.157, alpha: 1)
-        imageView.layer.cornerRadius = 1
-        imageView.layer.masksToBounds = true
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor(red: 1, green: 0.922, blue: 0.831, alpha: 1).cgColor
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -113,10 +127,12 @@ final class TransactionItemTableViewCell: UITableViewCell {
     }
 
     private func displayImage(with icon: Transaction.Icon, for imageView: UIImageView) {
-        if case let .url(urlString) = icon, let url = URL(string: urlString) {
+//        if case let .url(urlString) = icon, let url = URL(string: urlString) {
 //            imageView.fetchImage(with: url, imageFetcher: <#T##ImageFetcher#>)
-        } else if case let .category(icon) = icon {
-            imageView.image = icon.toUIImage()
+//        } else
+        if case let .category(icon) = icon {
+            imageView.image = icon.image
+            largeIconView.backgroundColor = icon.backgroundColor
         }
     }
 }
@@ -124,7 +140,9 @@ final class TransactionItemTableViewCell: UITableViewCell {
 extension TransactionItemTableViewCell: ViewCode {
     func setupSubViews() {
         addSubview(containerStackView)
-        addSubview(smallIconImageView)
+        largeIconView.addSubview(largeIconImageView)
+        addSubview(smallIconView)
+        smallIconView.addSubview(smallIconImageView)
     }
 
     func setupConstraints() {
@@ -135,8 +153,8 @@ extension TransactionItemTableViewCell: ViewCode {
 
     private func setupContainerStackViewConstraint() {
         NSLayoutConstraint.activate([
-            containerStackView.topAnchor.constraint(equalTo: topAnchor),
-            containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            containerStackView.topAnchor.constraint(equalTo: topAnchor, constant: 12),
+            containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
             containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
@@ -144,17 +162,25 @@ extension TransactionItemTableViewCell: ViewCode {
 
     private func setupLargeIconImageViewConstraint() {
         NSLayoutConstraint.activate([
-            largeIconImageView.heightAnchor.constraint(equalToConstant: 56),
-            largeIconImageView.widthAnchor.constraint(equalToConstant: 56)
+            largeIconView.heightAnchor.constraint(equalToConstant: 56),
+            largeIconView.widthAnchor.constraint(equalToConstant: 56),
+            largeIconImageView.topAnchor.constraint(equalTo: largeIconView.topAnchor, constant: 14),
+            largeIconImageView.bottomAnchor.constraint(equalTo: largeIconView.bottomAnchor, constant: -14),
+            largeIconImageView.leadingAnchor.constraint(equalTo: largeIconView.leadingAnchor, constant: 14),
+            largeIconImageView.trailingAnchor.constraint(equalTo: largeIconView.trailingAnchor, constant: -14)
         ])
     }
 
     private func setupSmallIconImageViewConstraint() {
         NSLayoutConstraint.activate([
-            smallIconImageView.bottomAnchor.constraint(equalTo: largeIconImageView.bottomAnchor),
-            smallIconImageView.trailingAnchor.constraint(equalTo: largeIconImageView.trailingAnchor),
-            smallIconImageView.heightAnchor.constraint(equalToConstant: 12),
-            smallIconImageView.widthAnchor.constraint(equalToConstant: 12)
+            smallIconView.bottomAnchor.constraint(equalTo: largeIconView.bottomAnchor, constant: 4),
+            smallIconView.trailingAnchor.constraint(equalTo: largeIconView.trailingAnchor, constant: 4),
+            smallIconView.heightAnchor.constraint(equalToConstant: 24),
+            smallIconView.widthAnchor.constraint(equalToConstant: 24),
+            smallIconImageView.topAnchor.constraint(equalTo: smallIconView.topAnchor, constant: 6),
+            smallIconImageView.bottomAnchor.constraint(equalTo: smallIconView.bottomAnchor, constant: -6),
+            smallIconImageView.leadingAnchor.constraint(equalTo: smallIconView.leadingAnchor, constant: 6),
+            smallIconImageView.trailingAnchor.constraint(equalTo: smallIconView.trailingAnchor, constant: -6)
         ])
     }
 }

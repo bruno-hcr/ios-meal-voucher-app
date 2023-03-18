@@ -1,15 +1,21 @@
 import UIKit
+import MealVoucherDetailInterface
+import MealVoucherListInterface
+import RouterServiceInterface
 
 final class MealVoucherListViewController: UIViewController {
     private let customView: MealVoucherListViewProtocol & UIView
     private let service: TransactionListServiceProtocol
+    private let routerService: RouterServiceProtocol
 
     init(
         customView: MealVoucherListViewProtocol & UIView,
-        service: TransactionListServiceProtocol
+        service: TransactionListServiceProtocol,
+        routerService: RouterServiceProtocol
     ) {
         self.customView = customView
         self.service = service
+        self.routerService = routerService
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -39,10 +45,21 @@ final class MealVoucherListViewController: UIViewController {
             }
         }
     }
+    
+    private func navigateToTransactionDetail(with transaction: Transaction) {
+        let route = MealVoucherDetailRoute(transaction: transaction)
+        
+        routerService.navigate(
+            toRoute: route,
+            fromView: self,
+            presentationStyle: Push(),
+            animated: true
+        )
+    }
 }
 
 extension MealVoucherListViewController: MealVoucherListViewDelegate {
     func didSelectTransaction() {
-
+        
     }
 }

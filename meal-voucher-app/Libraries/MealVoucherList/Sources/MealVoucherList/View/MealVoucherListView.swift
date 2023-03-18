@@ -20,6 +20,7 @@ final class MealVoucherListView: UIView, MealVoucherListViewProtocol {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
         tableView.register(cellClass: TransactionItemTableViewCell.self)
         return tableView
     }()

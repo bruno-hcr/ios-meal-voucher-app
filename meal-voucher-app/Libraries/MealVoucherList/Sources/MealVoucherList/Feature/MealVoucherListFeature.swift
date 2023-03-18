@@ -14,7 +14,8 @@ struct MealVoucherListFeature: Feature {
         let view = MealVoucherListView()
         let viewController = MealVoucherListViewController(
             customView: view,
-            service: service
+            service: service,
+            routerService: routerService
         )
         view.delegate = viewController
         return viewController
