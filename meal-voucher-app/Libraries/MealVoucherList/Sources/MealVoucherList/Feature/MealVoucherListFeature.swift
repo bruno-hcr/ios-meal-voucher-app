@@ -11,7 +11,7 @@ struct MealVoucherListFeature: Feature {
 
     func build(fromRoute route: Route?) -> UIViewController {
         let service = TransactionListService(network: network)
-        let view = MealVoucherListView()
+        let view = MealVoucherListView(imageFetcher: imageFetcher)
         let viewController = MealVoucherListViewController(
             customView: view,
             service: service,

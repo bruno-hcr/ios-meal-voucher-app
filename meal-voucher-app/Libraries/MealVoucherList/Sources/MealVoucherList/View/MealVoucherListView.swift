@@ -1,8 +1,9 @@
 import Components
+import ImageFetcherInterface
 import UIKit
 
 protocol MealVoucherListViewDelegate: AnyObject {
-    func didSelectTransaction()
+    func didSelectRowAt(indexPath: IndexPath)
 }
 
 protocol MealVoucherListViewProtocol {
@@ -12,8 +13,10 @@ protocol MealVoucherListViewProtocol {
 final class MealVoucherListView: UIView, MealVoucherListViewProtocol {
     typealias ViewModel = TransactionItemTableViewCell.ViewModel
 
-    private var viewModel: [ViewModel] = []
+    private let imageFetcher: ImageFetcherProtocol
     weak var delegate: MealVoucherListViewDelegate?
+    
+    private var viewModel: [ViewModel] = []
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -25,7 +28,8 @@ final class MealVoucherListView: UIView, MealVoucherListViewProtocol {
         return tableView
     }()
 
-    init() {
+    init(imageFetcher: ImageFetcherProtocol) {
+        self.imageFetcher = imageFetcher
         super.init(frame: .zero)
         setup()
     }
@@ -71,13 +75,14 @@ extension MealVoucherListView: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(cellClass: TransactionItemTableViewCell.self, forIndexPath: indexPath)
+        cell.imageFetcher = imageFetcher
         let item = viewModel[indexPath.row]
         cell.display(item)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = viewModel[indexPath.row]
-        delegate?.didSelectTransaction()
+        delegate?.didSelectRowAt(indexPath: indexPath)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

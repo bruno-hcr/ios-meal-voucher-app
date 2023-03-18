@@ -35,4 +35,8 @@ extension MealVoucherDetailView: ViewCode {
     func setupConstraints() {
 
     }
+    
+    func setupExtraConfiguration() {
+        backgroundColor = .white
+    }
 }

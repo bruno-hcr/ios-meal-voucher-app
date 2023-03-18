@@ -19,6 +19,7 @@ final class TransactionItemTableViewCell: UITableViewCell {
     }
 
     private var viewModel: ViewModel?
+    var imageFetcher: ImageFetcherProtocol?
 
     private lazy var containerStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
@@ -127,10 +128,9 @@ final class TransactionItemTableViewCell: UITableViewCell {
     }
 
     private func displayImage(with icon: Transaction.Icon, for imageView: UIImageView) {
-//        if case let .url(urlString) = icon, let url = URL(string: urlString) {
-//            imageView.fetchImage(with: url, imageFetcher: <#T##ImageFetcher#>)
-//        } else
-        if case let .category(icon) = icon {
+        if case let .url(urlString) = icon, let url = URL(string: urlString), let imageFetcher {
+            imageView.fetchImage(with: url, imageFetcher: imageFetcher)
+        } else if case let .category(icon) = icon {
             imageView.image = icon.image
             largeIconView.backgroundColor = icon.backgroundColor
         }

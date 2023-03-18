@@ -7,6 +7,8 @@ final class MealVoucherListViewController: UIViewController {
     private let customView: MealVoucherListViewProtocol & UIView
     private let service: TransactionListServiceProtocol
     private let routerService: RouterServiceProtocol
+    
+    private var transactions: [Transaction] = []
 
     init(
         customView: MealVoucherListViewProtocol & UIView,
@@ -39,8 +41,10 @@ final class MealVoucherListViewController: UIViewController {
             guard let self else { return }
             switch result {
             case .success(let transactionList):
+                self.transactions = transactionList
                 self.customView.display(viewModel: transactionList.map(\.viewModel))
             case .failure:
+                self.transactions = []
                 break
             }
         }
@@ -59,7 +63,8 @@ final class MealVoucherListViewController: UIViewController {
 }
 
 extension MealVoucherListViewController: MealVoucherListViewDelegate {
-    func didSelectTransaction() {
-        
+    func didSelectRowAt(indexPath: IndexPath) {
+        let selectedTransaction = transactions[indexPath.row]
+        navigateToTransactionDetail(with: selectedTransaction)
     }
 }
