@@ -19,23 +19,26 @@ let package = Package(
         )
     ],
     dependencies: [
+        .package(path: "./CommonAssets"),
         .package(path: "./Components"),
-        .package(path: "./MealVoucherList"),
+        .package(path: "./ImageFetcher"),
         .package(path: "./RouterService")
     ],
     targets: [
         .target(
             name: "MealVoucherDetail",
             dependencies: [
+                "CommonAssets",
                 "Components",
                 "MealVoucherDetailInterface",
+                .product(name: "ImageFetcherInterface", package: "ImageFetcher"),
                 .product(name: "RouterServiceInterface", package: "RouterService")
             ]
         ),
         .target(
             name: "MealVoucherDetailInterface",
             dependencies: [
-                .product(name: "MealVoucherListInterface", package: "MealVoucherList"),
+                "CommonAssets",
                 .product(name: "RouterServiceInterface", package: "RouterService")
             ]
         ),

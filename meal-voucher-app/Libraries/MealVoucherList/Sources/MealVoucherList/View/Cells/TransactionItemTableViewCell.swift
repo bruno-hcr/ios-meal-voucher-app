@@ -1,20 +1,20 @@
 import Components
+import CommonAssets
 import ImageFetcherInterface
 import MealVoucherListInterface
 import UIKit
 
 final class TransactionItemTableViewCell: UITableViewCell {
     struct ViewModel {
-        let transactionName: String
-        let transactionMessage: String?
-        let transactionDate: Date
-        let transactionAmountSymbol: String
-        let transactionAmountValue: Double
-        let smallIcon: Transaction.Icon
-        let largeIcon: Transaction.Icon
+        let name: String
+        let message: String?
+        let amountSymbol: String
+        let amountValue: Double
+        let smallIcon: Icon
+        let largeIcon: Icon
 
-        var amountFormatted: String {
-            "\(transactionAmountValue) \(transactionAmountSymbol)"
+        var formattedAmountCurrencyValue: String {
+            "\(amountValue) \(amountSymbol)"
         }
     }
 
@@ -23,7 +23,7 @@ final class TransactionItemTableViewCell: UITableViewCell {
 
     private lazy var containerStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            largeIconView,
+            largeIconBackgroundView,
             contentStackView,
             amountLabel
         ])
@@ -47,8 +47,8 @@ final class TransactionItemTableViewCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
-    private lazy var smallIconView: UIView = {
+
+    private lazy var smallIconBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.cornerRadius = 12
@@ -60,13 +60,12 @@ final class TransactionItemTableViewCell: UITableViewCell {
     private lazy var smallIconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = UIColor(red: 0.992, green: 0.609, blue: 0.157, alpha: 1)
         imageView.backgroundColor = .white
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
-    private lazy var largeIconView: UIView = {
+
+    private lazy var largeIconBackgroundView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor(red: 0.988, green: 0.388, blue: 0.714, alpha: 0.06).cgColor
@@ -79,7 +78,6 @@ final class TransactionItemTableViewCell: UITableViewCell {
     private lazy var largeIconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = UIColor(red: 0.992, green: 0.609, blue: 0.157, alpha: 1)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -120,19 +118,19 @@ final class TransactionItemTableViewCell: UITableViewCell {
 
     func display(_ viewModel: ViewModel) {
         self.viewModel = viewModel
-        self.titleLabel.text = viewModel.transactionName
-        self.subtitleLabel.text = viewModel.transactionName
-        self.amountLabel.text = viewModel.amountFormatted
+        self.titleLabel.text = viewModel.name
+        self.subtitleLabel.text = viewModel.name
+        self.amountLabel.text = viewModel.formattedAmountCurrencyValue
         displayImage(with: viewModel.smallIcon, for: smallIconImageView)
         displayImage(with: viewModel.largeIcon, for: largeIconImageView)
     }
 
-    private func displayImage(with icon: Transaction.Icon, for imageView: UIImageView) {
+    private func displayImage(with icon: Icon, for imageView: UIImageView) {
         if case let .url(urlString) = icon, let url = URL(string: urlString), let imageFetcher {
             imageView.fetchImage(with: url, imageFetcher: imageFetcher)
         } else if case let .category(icon) = icon {
             imageView.image = icon.image
-            largeIconView.backgroundColor = icon.backgroundColor
+            largeIconBackgroundView.backgroundColor = icon.backgroundColor
         }
     }
 }
@@ -140,9 +138,9 @@ final class TransactionItemTableViewCell: UITableViewCell {
 extension TransactionItemTableViewCell: ViewCode {
     func setupSubViews() {
         addSubview(containerStackView)
-        largeIconView.addSubview(largeIconImageView)
-        addSubview(smallIconView)
-        smallIconView.addSubview(smallIconImageView)
+        largeIconBackgroundView.addSubview(largeIconImageView)
+        addSubview(smallIconBackgroundView)
+        smallIconBackgroundView.addSubview(smallIconImageView)
     }
 
     func setupConstraints() {
@@ -162,25 +160,25 @@ extension TransactionItemTableViewCell: ViewCode {
 
     private func setupLargeIconImageViewConstraint() {
         NSLayoutConstraint.activate([
-            largeIconView.heightAnchor.constraint(equalToConstant: 56),
-            largeIconView.widthAnchor.constraint(equalToConstant: 56),
-            largeIconImageView.topAnchor.constraint(equalTo: largeIconView.topAnchor, constant: 14),
-            largeIconImageView.bottomAnchor.constraint(equalTo: largeIconView.bottomAnchor, constant: -14),
-            largeIconImageView.leadingAnchor.constraint(equalTo: largeIconView.leadingAnchor, constant: 14),
-            largeIconImageView.trailingAnchor.constraint(equalTo: largeIconView.trailingAnchor, constant: -14)
+            largeIconBackgroundView.heightAnchor.constraint(equalToConstant: 56),
+            largeIconBackgroundView.widthAnchor.constraint(equalToConstant: 56),
+            largeIconImageView.topAnchor.constraint(equalTo: largeIconBackgroundView.topAnchor, constant: 14),
+            largeIconImageView.bottomAnchor.constraint(equalTo: largeIconBackgroundView.bottomAnchor, constant: -14),
+            largeIconImageView.leadingAnchor.constraint(equalTo: largeIconBackgroundView.leadingAnchor, constant: 14),
+            largeIconImageView.trailingAnchor.constraint(equalTo: largeIconBackgroundView.trailingAnchor, constant: -14)
         ])
     }
 
     private func setupSmallIconImageViewConstraint() {
         NSLayoutConstraint.activate([
-            smallIconView.bottomAnchor.constraint(equalTo: largeIconView.bottomAnchor, constant: 4),
-            smallIconView.trailingAnchor.constraint(equalTo: largeIconView.trailingAnchor, constant: 4),
-            smallIconView.heightAnchor.constraint(equalToConstant: 24),
-            smallIconView.widthAnchor.constraint(equalToConstant: 24),
-            smallIconImageView.topAnchor.constraint(equalTo: smallIconView.topAnchor, constant: 6),
-            smallIconImageView.bottomAnchor.constraint(equalTo: smallIconView.bottomAnchor, constant: -6),
-            smallIconImageView.leadingAnchor.constraint(equalTo: smallIconView.leadingAnchor, constant: 6),
-            smallIconImageView.trailingAnchor.constraint(equalTo: smallIconView.trailingAnchor, constant: -6)
+            smallIconBackgroundView.bottomAnchor.constraint(equalTo: largeIconBackgroundView.bottomAnchor, constant: 4),
+            smallIconBackgroundView.trailingAnchor.constraint(equalTo: largeIconBackgroundView.trailingAnchor, constant: 4),
+            smallIconBackgroundView.heightAnchor.constraint(equalToConstant: 24),
+            smallIconBackgroundView.widthAnchor.constraint(equalToConstant: 24),
+            smallIconImageView.topAnchor.constraint(equalTo: smallIconBackgroundView.topAnchor, constant: 6),
+            smallIconImageView.bottomAnchor.constraint(equalTo: smallIconBackgroundView.bottomAnchor, constant: -6),
+            smallIconImageView.leadingAnchor.constraint(equalTo: smallIconBackgroundView.leadingAnchor, constant: 6),
+            smallIconImageView.trailingAnchor.constraint(equalTo: smallIconBackgroundView.trailingAnchor, constant: -6)
         ])
     }
 }
@@ -188,11 +186,10 @@ extension TransactionItemTableViewCell: ViewCode {
 extension Transaction {
     var viewModel: MealVoucherListView.ViewModel {
         .init(
-            transactionName: name,
-            transactionMessage: message,
-            transactionDate: date,
-            transactionAmountSymbol: amount.symbol,
-            transactionAmountValue: amount.value,
+            name: name,
+            message: message,
+            amountSymbol: amount.symbol,
+            amountValue: amount.value,
             smallIcon: smallIcon,
             largeIcon: largeIcon
         )

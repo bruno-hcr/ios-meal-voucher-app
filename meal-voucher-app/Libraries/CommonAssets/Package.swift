@@ -12,7 +12,7 @@ let package = Package(
         .library(
             name: "CommonAssets",
             targets: ["CommonAssets"]
-        ),
+        )
     ],
     dependencies: [],
     targets: [

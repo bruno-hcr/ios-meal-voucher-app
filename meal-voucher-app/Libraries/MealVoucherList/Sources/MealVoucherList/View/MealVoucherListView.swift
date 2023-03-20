@@ -15,7 +15,7 @@ final class MealVoucherListView: UIView, MealVoucherListViewProtocol {
 
     private let imageFetcher: ImageFetcherProtocol
     weak var delegate: MealVoucherListViewDelegate?
-    
+
     private var viewModel: [ViewModel] = []
 
     private lazy var tableView: UITableView = {

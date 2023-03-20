@@ -25,12 +25,27 @@ final class MealVoucherDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        service.getTransaction { result in
+        getTransactionDetail()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+
+    private func getTransactionDetail() {
+        service.getTransactionDetail { [weak self] result in
+            guard let self else { return }
             switch result {
-            case .success:
-                print("foo")
+            case .success(let transactionDetail):
+                self.customView.display(viewModel: transactionDetail.viewModel)
             case .failure:
-                print("bar")
+                break
             }
         }
     }

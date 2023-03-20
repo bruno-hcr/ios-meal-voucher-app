@@ -7,7 +7,7 @@ final class MealVoucherListViewController: UIViewController {
     private let customView: MealVoucherListViewProtocol & UIView
     private let service: TransactionListServiceProtocol
     private let routerService: RouterServiceProtocol
-    
+
     private var transactions: [Transaction] = []
 
     init(
@@ -32,7 +32,7 @@ final class MealVoucherListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Transaction List"
+        navigationItem.title = "Meal Vouchers"
         getTransactionList()
     }
 
@@ -49,10 +49,10 @@ final class MealVoucherListViewController: UIViewController {
             }
         }
     }
-    
+
     private func navigateToTransactionDetail(with transaction: Transaction) {
-        let route = MealVoucherDetailRoute(transaction: transaction)
-        
+        let route = MealVoucherDetailRoute(transactionDetail: .map(from: transaction))
+
         routerService.navigate(
             toRoute: route,
             fromView: self,

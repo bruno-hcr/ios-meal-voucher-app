@@ -1,18 +1,18 @@
 import Foundation
-import MealVoucherListInterface
+import MealVoucherDetailInterface
 
 protocol TransactionDetailServiceProtocol {
-    func getTransaction(completion: @escaping (Result<Transaction, Error>) -> Void)
+    func getTransactionDetail(completion: @escaping (Result<TransactionDetail, Never>) -> Void)
 }
 
 final class TransactionDetailService: TransactionDetailServiceProtocol {
-    private let transaction: Transaction
+    private let transactionDetail: TransactionDetail
 
-    init(transaction: Transaction) {
-        self.transaction = transaction
+    init(transactionDetail: TransactionDetail) {
+        self.transactionDetail = transactionDetail
     }
 
-    func getTransaction(completion: @escaping (Result<Transaction, Error>) -> Void) {
-        completion(.success(transaction))
+    func getTransactionDetail(completion: @escaping (Result<TransactionDetail, Never>) -> Void) {
+        completion(.success(transactionDetail))
     }
 }

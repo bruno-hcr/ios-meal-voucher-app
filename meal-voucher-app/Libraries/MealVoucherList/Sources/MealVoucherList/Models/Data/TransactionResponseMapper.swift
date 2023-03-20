@@ -1,3 +1,4 @@
+import CommonAssets
 import Foundation
 import MealVoucherListInterface
 
@@ -26,16 +27,5 @@ extension Transaction.Amount {
             value: response.value,
             symbol: response.currency.symbol
         )
-    }
-}
-
-extension Transaction.Icon {
-    static func map (fromUrl url: String?, andCategory category: String) -> Self {
-        guard let url else {
-            let iconImage = Transaction.IconImage(rawValue: category) ?? .none
-            return .category(iconImage)
-        }
-
-        return .url(url)
     }
 }

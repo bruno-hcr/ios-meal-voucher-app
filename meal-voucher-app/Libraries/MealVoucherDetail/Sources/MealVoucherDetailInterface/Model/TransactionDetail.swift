@@ -1,9 +1,8 @@
-import CommonAssets
 import Foundation
+import CommonAssets
 
-public struct Transaction {
+public struct TransactionDetail {
     public let name: String
-    public let message: String?
     public let date: Date
     public let amount: Amount
     public let smallIcon: Icon
@@ -18,7 +17,6 @@ public struct Transaction {
         largeIcon: Icon
     ) {
         self.name = name
-        self.message = message
         self.date = date
         self.amount = amount
         self.smallIcon = smallIcon
@@ -26,7 +24,7 @@ public struct Transaction {
     }
 }
 
-extension Transaction {
+extension TransactionDetail {
     public struct Amount {
         public let value: Double
         public let symbol: String
