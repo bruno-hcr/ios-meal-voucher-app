@@ -25,7 +25,7 @@ This project uses Swift Package Manager as dependency manager
 # Dependency graph
 Based in this [article](https://swiftrocks.com/reducing-ios-build-times-by-using-interface-targets) this project was buit using interface modules with a DI container. "Interface" modules don't contain any concrete code or dependencies -- they just contain protocols that are used by the modules that depend on it to reference some piece of code that is defined in the real, concrete module. 
 In terms of build time, because features doesn't depend of another feature, changes to concrete modules will not recompile the entire project or it dependencies avoiding a massive boost in build performance!
-It also helps to keep feature modules contained and each module can use whichever UI design pattern it prefers from an isolated module.
+It also helps to keep feature modules contained and each module can use whichever UI design pattern (I presented [this talk](https://youtu.be/eXvzhPJEbtM) where I mentioned that) it prefers from an isolated module.
 
 ## Main app
 ![Main app](images/Main.jpeg)
