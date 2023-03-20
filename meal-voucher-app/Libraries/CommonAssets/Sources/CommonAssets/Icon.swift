@@ -26,6 +26,9 @@ public enum IconImage: String {
     case supermarket
     case sushi
     case train
+    case vias
+    case heart
+    case interrogation
     case none
 
     public var image: UIImage? {
@@ -48,6 +51,12 @@ public enum IconImage: String {
             return Image.drink
         case .train:
             return Image.subway
+        case .vias:
+            return Image.vias
+        case .heart:
+            return Image.heart
+        case .interrogation:
+            return Image.interrogation
         case .none:
             return nil
         }
@@ -56,11 +65,13 @@ public enum IconImage: String {
     public var backgroundColor: UIColor {
         switch self {
         case .computer:
-            return UIColor(red: 0.996, green: 0.878, blue: 0.941, alpha: 1)
+            return .init(red: 0.996, green: 0.878, blue: 0.941, alpha: 1)
         case .train:
-            return UIColor(red: 0.996, green: 0.878, blue: 0.882, alpha: 1)
+            return .init(red: 0.996, green: 0.878, blue: 0.882, alpha: 1)
+        case .heart, .vias, .interrogation:
+            return .init(red: 0.965, green: 0.965, blue: 0.973, alpha: 1)
         default:
-            return UIColor(red: 1, green: 0.922, blue: 0.831, alpha: 1)
+            return .init(red: 1, green: 0.922, blue: 0.831, alpha: 1)
         }
     }
 }

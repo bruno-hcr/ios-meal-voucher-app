@@ -11,6 +11,9 @@ public enum Image {
     public static let subway = UIImageInModule(named: "subway")
     public static let sushi = UIImageInModule(named: "sushi")
     public static let tech = UIImageInModule(named: "tech")
+    public static let vias = UIImageInModule(named: "vias")
+    public static let heart = UIImageInModule(named: "heart")
+    public static let interrogation = UIImageInModule(named: "interrogation")
 
     private static func UIImageInModule(named: String) -> UIImage? {
         UIImage(named: named, in: .module, compatibleWith: nil)

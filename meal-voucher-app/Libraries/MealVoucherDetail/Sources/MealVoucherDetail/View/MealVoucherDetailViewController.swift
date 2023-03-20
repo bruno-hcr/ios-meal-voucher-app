@@ -50,3 +50,9 @@ final class MealVoucherDetailViewController: UIViewController {
         }
     }
 }
+
+extension MealVoucherDetailViewController: MealVoucherDetailViewDelegate {
+    func didTapOnClose() {
+        navigationController?.popViewController(animated: false)
+    }
+}

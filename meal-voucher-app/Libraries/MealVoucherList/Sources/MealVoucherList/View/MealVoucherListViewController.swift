@@ -57,7 +57,7 @@ final class MealVoucherListViewController: UIViewController {
             toRoute: route,
             fromView: self,
             presentationStyle: Push(),
-            animated: true
+            animated: false
         )
     }
 }

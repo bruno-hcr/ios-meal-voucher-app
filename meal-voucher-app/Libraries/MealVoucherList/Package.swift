@@ -19,8 +19,8 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(path: "./Components"),
         .package(path: "./CommonAssets"),
+        .package(path: "./Components"),
         .package(path: "./ImageFetcher"),
         .package(path: "./MealVoucherDetail"),
         .package(path: "./Network"),
@@ -30,6 +30,7 @@ let package = Package(
         .target(
             name: "MealVoucherList",
             dependencies: [
+                "CommonAssets",
                 "Components",
                 .product(name: "MealVoucherDetailInterface", package: "MealVoucherDetail"),
                 "MealVoucherListInterface",

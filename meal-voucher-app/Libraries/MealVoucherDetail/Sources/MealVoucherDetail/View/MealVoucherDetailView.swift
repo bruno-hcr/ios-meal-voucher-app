@@ -8,8 +8,11 @@ protocol MealVoucherDetailViewProtocol {
     func display(viewModel: MealVoucherDetailView.ViewModel)
 }
 
-final class MealVoucherDetailView: UIView, MealVoucherDetailViewProtocol {
+protocol MealVoucherDetailViewDelegate: AnyObject {
+    func didTapOnClose()
+}
 
+final class MealVoucherDetailView: UIView, MealVoucherDetailViewProtocol {
     struct ViewModel {
         let name: String
         let date: Date
@@ -32,11 +35,13 @@ final class MealVoucherDetailView: UIView, MealVoucherDetailViewProtocol {
 
     private var viewModel: ViewModel?
     private let imageFetcher: ImageFetcherProtocol
+    weak var delegate: MealVoucherDetailViewDelegate?
 
     private lazy var closeButton: UIButton = {
         let button = UIButton()
         button.setImage(Image.arrow, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(didTapOnCloseButton), for: .touchUpInside)
         return button
     }()
 
@@ -77,7 +82,7 @@ final class MealVoucherDetailView: UIView, MealVoucherDetailViewProtocol {
     private lazy var smallIconBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.layer.cornerRadius = 12
+        view.layer.cornerRadius = 16
         view.layer.masksToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -157,20 +162,37 @@ final class MealVoucherDetailView: UIView, MealVoucherDetailViewProtocol {
             largeIconBackgroundView.backgroundColor = icon.backgroundColor
         }
     }
+    
+    @objc private func didTapOnCloseButton() {
+        delegate?.didTapOnClose()
+    }
+    
+    private func getStatusBarHeight() -> CGFloat {
+        var statusBarHeight: CGFloat = 0
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        let window = windowScene?.windows.first
+        statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        return statusBarHeight + 5.0
+    }
 }
 
 extension MealVoucherDetailView: ViewCode {
     func setupSubViews() {
         addSubview(scrollView)
+        scrollView.addSubview(largeIconBackgroundView)
         scrollView.addSubview(containerStackView)
-        containerStackView.addArrangedSubview(largeIconBackgroundView)
+        
         largeIconBackgroundView.addSubview(largeIconImageView)
         largeIconBackgroundView.addSubview(smallIconBackgroundView)
         largeIconBackgroundView.addSubview(closeButton)
+        
         smallIconBackgroundView.addSubview(smallIconImageView)
+        
         contentStackView.addArrangedSubview(amountLabel)
         contentStackView.addArrangedSubview(nameLabel)
         contentStackView.addArrangedSubview(dateLabel)
+        
         containerStackView.addArrangedSubview(contentStackView)
 
         ActionMenuItem.allCases.forEach { item in
@@ -205,8 +227,7 @@ extension MealVoucherDetailView: ViewCode {
     }
 
     private func setupScrollViewConstraint() {
-        let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-        let statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        let statusBarHeight = getStatusBarHeight()
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor, constant: -statusBarHeight),
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -214,20 +235,14 @@ extension MealVoucherDetailView: ViewCode {
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
-
-    private func setupContainerStackViewConstraint() {
-        NSLayoutConstraint.activate([
-            containerStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            containerStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            containerStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            containerStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-        ])
-    }
-
+    
     private func setupLargeIconConstraint() {
         NSLayoutConstraint.activate([
             largeIconBackgroundView.heightAnchor.constraint(equalToConstant: 224),
+            largeIconBackgroundView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            largeIconBackgroundView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            largeIconBackgroundView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            largeIconBackgroundView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             largeIconImageView.centerYAnchor.constraint(equalTo: largeIconBackgroundView.centerYAnchor),
             largeIconImageView.centerXAnchor.constraint(equalTo: largeIconBackgroundView.centerXAnchor),
             largeIconImageView.heightAnchor.constraint(equalToConstant: 57),
@@ -236,12 +251,21 @@ extension MealVoucherDetailView: ViewCode {
         ])
     }
 
+    private func setupContainerStackViewConstraint() {
+        NSLayoutConstraint.activate([
+            containerStackView.topAnchor.constraint(equalTo: largeIconBackgroundView.bottomAnchor, constant: 24),
+            containerStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
+            containerStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20)
+        ])
+    }
+
     private func setupSmallIconImageViewConstraint() {
         NSLayoutConstraint.activate([
-            smallIconBackgroundView.bottomAnchor.constraint(equalTo: largeIconBackgroundView.bottomAnchor, constant: 4),
-            smallIconBackgroundView.trailingAnchor.constraint(equalTo: largeIconBackgroundView.trailingAnchor, constant: 4),
-            smallIconBackgroundView.heightAnchor.constraint(equalToConstant: 24),
-            smallIconBackgroundView.widthAnchor.constraint(equalToConstant: 24),
+            smallIconBackgroundView.bottomAnchor.constraint(equalTo: largeIconBackgroundView.bottomAnchor, constant: 10),
+            smallIconBackgroundView.trailingAnchor.constraint(equalTo: largeIconBackgroundView.trailingAnchor, constant: -32),
+            smallIconBackgroundView.heightAnchor.constraint(equalToConstant: 32),
+            smallIconBackgroundView.widthAnchor.constraint(equalToConstant: 32),
             smallIconImageView.topAnchor.constraint(equalTo: smallIconBackgroundView.topAnchor, constant: 6),
             smallIconImageView.bottomAnchor.constraint(equalTo: smallIconBackgroundView.bottomAnchor, constant: -6),
             smallIconImageView.leadingAnchor.constraint(equalTo: smallIconBackgroundView.leadingAnchor, constant: 6),

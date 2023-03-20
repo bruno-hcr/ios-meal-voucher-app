@@ -104,8 +104,8 @@ extension ActionItemView: ViewCode {
 
     private func setupStackViewConstraint() {
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 18),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
@@ -125,7 +125,7 @@ extension ActionItemView: ViewCode {
     private func setupSeparatorViewConstraint() {
         NSLayoutConstraint.activate([
             separatorView.heightAnchor.constraint(equalToConstant: 1),
-            separatorView.topAnchor.constraint(equalTo: stackView.bottomAnchor),
+            separatorView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 18),
             separatorView.leadingAnchor.constraint(equalTo: descriptionLabel.leadingAnchor),
             separatorView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
@@ -145,7 +145,16 @@ enum ActionMenuItem: CaseIterable {
     case report
 
     var icon: IconImage {
-        return .mealVoucher
+        switch self {
+        case .mealVouchers:
+            return .mealVoucher
+        case .share:
+            return .vias
+        case .favorite:
+            return .heart
+        case .report:
+            return .interrogation
+        }
     }
 
     var description: String {

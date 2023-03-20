@@ -18,7 +18,7 @@ struct MealVoucherDetailFeature: Feature {
             customView: view,
             service: service
         )
-
+        view.delegate = viewController
         return viewController
     }
 }
