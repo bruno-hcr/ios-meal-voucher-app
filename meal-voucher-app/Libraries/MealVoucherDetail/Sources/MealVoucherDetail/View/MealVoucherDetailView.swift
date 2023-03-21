@@ -162,18 +162,9 @@ final class MealVoucherDetailView: UIView, MealVoucherDetailViewProtocol {
             largeIconBackgroundView.backgroundColor = icon.backgroundColor
         }
     }
-    
+
     @objc private func didTapOnCloseButton() {
         delegate?.didTapOnClose()
-    }
-    
-    private func getStatusBarHeight() -> CGFloat {
-        var statusBarHeight: CGFloat = 0
-        let scenes = UIApplication.shared.connectedScenes
-        let windowScene = scenes.first as? UIWindowScene
-        let window = windowScene?.windows.first
-        statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-        return statusBarHeight + 5.0
     }
 }
 
@@ -182,17 +173,17 @@ extension MealVoucherDetailView: ViewCode {
         addSubview(scrollView)
         scrollView.addSubview(largeIconBackgroundView)
         scrollView.addSubview(containerStackView)
-        
+
         largeIconBackgroundView.addSubview(largeIconImageView)
         largeIconBackgroundView.addSubview(smallIconBackgroundView)
         largeIconBackgroundView.addSubview(closeButton)
-        
+
         smallIconBackgroundView.addSubview(smallIconImageView)
-        
+
         contentStackView.addArrangedSubview(amountLabel)
         contentStackView.addArrangedSubview(nameLabel)
         contentStackView.addArrangedSubview(dateLabel)
-        
+
         containerStackView.addArrangedSubview(contentStackView)
 
         ActionMenuItem.allCases.forEach { item in
@@ -227,15 +218,14 @@ extension MealVoucherDetailView: ViewCode {
     }
 
     private func setupScrollViewConstraint() {
-        let statusBarHeight = getStatusBarHeight()
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: topAnchor, constant: -statusBarHeight),
+            scrollView.topAnchor.constraint(equalTo: topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
-    
+
     private func setupLargeIconConstraint() {
         NSLayoutConstraint.activate([
             largeIconBackgroundView.heightAnchor.constraint(equalToConstant: 224),
@@ -275,6 +265,12 @@ extension MealVoucherDetailView: ViewCode {
 
     func setupExtraConfiguration() {
         backgroundColor = .white
+    }
+}
+
+extension MealVoucherDetailView: ViewAnimatable {
+    var targetView: UIView {
+        largeIconImageView
     }
 }
 

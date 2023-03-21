@@ -1,5 +1,6 @@
-import UIKit
+import Components
 import MealVoucherListInterface
+import UIKit
 
 final class MealVoucherDetailViewController: UIViewController {
     private let customView: MealVoucherDetailViewProtocol & UIView
@@ -53,6 +54,6 @@ final class MealVoucherDetailViewController: UIViewController {
 
 extension MealVoucherDetailViewController: MealVoucherDetailViewDelegate {
     func didTapOnClose() {
-        navigationController?.popViewController(animated: false)
+        dismiss(animated: true)
     }
 }

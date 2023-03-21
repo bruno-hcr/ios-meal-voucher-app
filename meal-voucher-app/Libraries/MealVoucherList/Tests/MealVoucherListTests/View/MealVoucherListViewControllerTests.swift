@@ -11,43 +11,43 @@ final class MealVoucherListViewControllerTests: XCTestCase {
     private let customViewSpy = MealVoucherListViewProtocolSpy()
     private let serviceStub = TransactionListServiceProtocolStub()
     private let routerServiceSpy = RouterServiceProtocolSpy()
-    
+
     private lazy var sut = MealVoucherListViewController(
         customView: customViewSpy,
         service: serviceStub,
         routerService: routerServiceSpy
     )
-    
+
     func test_viewDidLoad_givenServiceReturnSuccess_shouldCallViewDisplay_withViewModel() {
         serviceStub.getTransactionListCompletionToBeReturned = .success([
             .fixture()
         ])
-        
+
         sut.viewDidLoad()
-        
+
         XCTAssertTrue(serviceStub.getTransactionListCalled)
         XCTAssertTrue(customViewSpy.displayCalled)
         XCTAssertNotNil(customViewSpy.displayViewModelPassed)
     }
-    
+
     func test_viewDidLoad_givenServiceReturnFailure_shouldNotCallViewDisplay() {
         serviceStub.getTransactionListCompletionToBeReturned = .failure(ErrorDummy())
-        
+
         sut.viewDidLoad()
-        
+
         XCTAssertTrue(serviceStub.getTransactionListCalled)
         XCTAssertFalse(customViewSpy.displayCalled)
     }
-    
+
     func test_didSelectRowAt_givenTransactionList_shouldCallRouteToMealVoucherDetail() {
         serviceStub.getTransactionListCompletionToBeReturned = .success([
             .fixture()
         ])
-        
+
         sut.viewDidLoad()
-        
+
         sut.didSelectRowAt(indexPath: IndexPath(row: 0, section: 0))
-        
+
         XCTAssertTrue(routerServiceSpy.navigateCalled)
         XCTAssertNotNil(routerServiceSpy.navigateRoutePassed as? MealVoucherDetailRoute)
         XCTAssertNotNil(routerServiceSpy.navigateViewControllerPassed as? MealVoucherListViewController)
@@ -92,10 +92,10 @@ extension Transaction.Amount {
 }
 
 final class MealVoucherListViewProtocolSpy: UIView, MealVoucherListViewProtocol {
-    
+
     private(set) var displayCalled = false
     private(set) var displayViewModelPassed: [MealVoucherListView.ViewModel]?
-    
+
     func display(viewModel: [MealVoucherListView.ViewModel]) {
         displayCalled = true
         displayViewModelPassed = viewModel
@@ -103,7 +103,7 @@ final class MealVoucherListViewProtocolSpy: UIView, MealVoucherListViewProtocol 
 }
 
 final class TransactionListServiceProtocolStub: TransactionListServiceProtocol {
-    
+
     private(set) var getTransactionListCalled = false
     var getTransactionListCompletionToBeReturned: Result<[Transaction], Error>?
 
@@ -116,14 +116,14 @@ final class TransactionListServiceProtocolStub: TransactionListServiceProtocol {
 }
 
 final class RouterServiceProtocolSpy: RouterServiceProtocol {
-    
+
     private(set) var navigateCalled = false
     private(set) var navigateRoutePassed: Route?
     private(set) var navigateViewControllerPassed: UIViewController?
     private(set) var navigatePresentationStylePassed: PresentationStyle?
     private(set) var navigateAnimatedPassed: Bool?
     private(set) var navigateCompletionPassed: (() -> Void)?
-    
+
     func navigate(
         toRoute route: Route,
         fromView viewController: UIViewController,
@@ -139,4 +139,3 @@ final class RouterServiceProtocolSpy: RouterServiceProtocol {
         navigateCompletionPassed = completion
     }
 }
-

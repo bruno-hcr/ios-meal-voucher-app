@@ -1,7 +1,8 @@
-import UIKit
+import Components
 import MealVoucherDetailInterface
 import MealVoucherListInterface
 import RouterServiceInterface
+import UIKit
 
 final class MealVoucherListViewController: UIViewController {
     private let customView: MealVoucherListViewProtocol & UIView
@@ -56,8 +57,11 @@ final class MealVoucherListViewController: UIViewController {
         routerService.navigate(
             toRoute: route,
             fromView: self,
-            presentationStyle: Push(),
-            animated: false
+            presentationStyle: Modal(
+                modalPresentationStyle: .custom,
+                transitioningDelegate: self
+            ),
+            animated: true
         )
     }
 }
@@ -67,4 +71,14 @@ extension MealVoucherListViewController: MealVoucherListViewDelegate {
         let selectedTransaction = transactions[indexPath.row]
         navigateToTransactionDetail(with: selectedTransaction)
     }
+}
+
+extension MealVoucherListViewController: UIViewControllerTransitioningDelegate {
+   func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+      ViewAnimation(isPresenting: true)
+   }
+
+   func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+       ViewAnimation(isPresenting: false)
+   }
 }

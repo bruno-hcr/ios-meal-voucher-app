@@ -75,7 +75,7 @@ final class TransactionItemTableViewCell: UITableViewCell {
         return view
     }()
 
-    private lazy var largeIconImageView: UIImageView = {
+    lazy var largeIconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false

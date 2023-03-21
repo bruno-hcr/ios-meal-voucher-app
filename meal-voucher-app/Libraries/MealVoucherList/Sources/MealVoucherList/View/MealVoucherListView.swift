@@ -17,6 +17,7 @@ final class MealVoucherListView: UIView, MealVoucherListViewProtocol {
     weak var delegate: MealVoucherListViewDelegate?
 
     private var viewModel: [ViewModel] = []
+    private var selectedIndexPath: IndexPath?
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -42,6 +43,12 @@ final class MealVoucherListView: UIView, MealVoucherListViewProtocol {
     func display(viewModel: [ViewModel]) {
         self.viewModel = viewModel
         reloadTableView()
+    }
+
+    private func getImageViewToAnimate() -> UIView {
+        guard let selectedIndexPath else { return UIView() }
+        let cell = tableView.dequeue(cellClass: TransactionItemTableViewCell.self, forIndexPath: selectedIndexPath)
+        return cell.largeIconImageView
     }
 
     private func reloadTableView() {
@@ -82,7 +89,14 @@ extension MealVoucherListView: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedIndexPath = indexPath
         delegate?.didSelectRowAt(indexPath: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension MealVoucherListView: ViewAnimatable {
+    var targetView: UIView {
+        getImageViewToAnimate()
     }
 }

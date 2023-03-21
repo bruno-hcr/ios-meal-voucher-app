@@ -10,7 +10,7 @@ final class MealVoucherDetailFeatureTests: XCTestCase {
     private lazy var sut = MealVoucherDetailFeature(
         imageFetcher: .init(resolvedValue: ImageFetcherProtocolDummy())
     )
-    
+
     func test_build_shouldReturnViewController() {
         let viewController = sut.build(fromRoute: MealVoucherDetailRoute(transactionDetail: .fixture()))
         XCTAssertTrue(viewController is MealVoucherDetailViewController)
