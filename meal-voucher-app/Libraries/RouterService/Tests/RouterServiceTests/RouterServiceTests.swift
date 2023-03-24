@@ -116,12 +116,15 @@ final class RouterServiceTests: XCTestCase {
         service.register(dependencyFactory: depFactory, forType: RouterServiceDoubles.MockConcreteDependency.self)
         service.register(dependencyFactory: depFactory, forType: MockDependencyProtocol.self)
 
-        let feature = RouterServiceDoubles.FeatureSpyWithNoDependencies.self
-        let nav = service.navigationController(withInitialFeature: feature)
+        let fooHandler = RouterServiceDoubles.FooHandler()
+        service.register(routeHandler: fooHandler)
+
+        let route = RouterServiceDoubles.MockRouteFromFooHandler()
+        let nav = service.navigationController(withInitialRoute: route)
         let viewController = nav.viewControllers.first as? RouterServiceDoubles.FeatureViewControllerSpy
 
         XCTAssertNotNil(viewController)
-        XCTAssertNil(viewController?.routePassed)
+        XCTAssertNotNil(viewController?.routePassed as? RouterServiceDoubles.MockRouteFromFooHandler)
         XCTAssertNotNil(viewController?.dependenciesPassed)
     }
 

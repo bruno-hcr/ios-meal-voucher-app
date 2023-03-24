@@ -82,8 +82,7 @@ extension RouterServiceDoubles {
         var featureTypeToBeReturned: Feature.Type?
 
         func destination(
-            forRoute route: Route,
-            fromViewController viewController: UIViewController
+            forRoute route: Route
         ) -> Feature.Type {
             return featureTypeToBeReturned ?? FeatureSpy.self
         }
@@ -99,8 +98,7 @@ extension RouterServiceDoubles {
         }
 
         func destination(
-            forRoute route: Route,
-            fromViewController viewController: UIViewController
+            forRoute route: Route
         ) -> Feature.Type {
             return FeatureSpy.self
         }
