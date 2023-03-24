@@ -51,8 +51,8 @@ final class MealVoucherListViewControllerTests: XCTestCase {
         XCTAssertTrue(routerServiceSpy.navigateCalled)
         XCTAssertNotNil(routerServiceSpy.navigateRoutePassed as? MealVoucherDetailRoute)
         XCTAssertNotNil(routerServiceSpy.navigateViewControllerPassed as? MealVoucherListViewController)
-        XCTAssertNotNil(routerServiceSpy.navigatePresentationStylePassed as? Push)
-        XCTAssertTrue(routerServiceSpy.navigateAnimatedPassed == false)
+        XCTAssertNotNil(routerServiceSpy.navigatePresentationStylePassed as? Modal)
+        XCTAssertTrue(routerServiceSpy.navigateAnimatedPassed == true)
         XCTAssertNil(routerServiceSpy.navigateCompletionPassed)
     }
 }
